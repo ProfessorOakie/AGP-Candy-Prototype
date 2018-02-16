@@ -21,12 +21,15 @@ public class Castle : MonoBehaviour {
 
     public void OnTriggerEnter (Collider other)
     {
-        Destroy(other.gameObject);
-        float darkness = gameObject.GetComponent<MeshRenderer>().material.color.grayscale;
-        if (healthpoints <= 0)
-            Destroy(gameObject);
-        healthpoints -= damagetaken;
-        float grayNow = (float)healthpoints / (float)totalhealth;
-        gameObject.GetComponent<MeshRenderer>().material.color = new Color(grayNow, grayNow, grayNow);
+        if(other.CompareTag("Enemy"))
+        {
+            Destroy(other.gameObject);
+            float darkness = gameObject.GetComponent<MeshRenderer>().material.color.grayscale;
+            if (healthpoints <= 0)
+                Destroy(gameObject);
+            healthpoints -= damagetaken;
+            float grayNow = (float)healthpoints / (float)totalhealth;
+            gameObject.GetComponent<MeshRenderer>().material.color = new Color(grayNow, grayNow, grayNow);
+        }
     }
 }
