@@ -151,8 +151,29 @@ namespace NewtonVR
                 for (int handIndex = 0; handIndex < AttachedHands.Count; handIndex++)
                 {
                     AttachedHands[handIndex].EndInteraction(this);
-                    this.EndInteraction(AttachedHands[handIndex]);
+
+                    // Changed by Drew and Zach
+                    if (AttachedHands.Count > 0)
+                        this.EndInteraction(AttachedHands[handIndex]);
+                    else
+                        EndInteractionWhenDestroying();
                 }
+            }
+        }
+
+        // Written by Drew and Zach to stop errors when destroying held object
+        private void EndInteractionWhenDestroying()
+        {
+            ClosestHeldPoint = Vector3.zero;
+
+            if (EnableKinematicOnDetach == true)
+            {
+                Rigidbody.isKinematic = true;
+            }
+
+            if (EnableGravityOnDetach == true)
+            {
+                Rigidbody.useGravity = true;
             }
         }
 

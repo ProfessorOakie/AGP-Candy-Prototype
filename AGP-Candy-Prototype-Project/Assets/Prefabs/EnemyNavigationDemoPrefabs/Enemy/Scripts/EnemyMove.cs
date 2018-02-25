@@ -11,26 +11,57 @@ public class EnemyMove : MonoBehaviour {
     private Rigidbody mRigidbody;
     private bool isFalling;
 
+    [SerializeField]
+    private float massPickedUpScale = 20.0f;
+
     // Use this for initialization
     void Start () {
         agent = GetComponent<NavMeshAgent>();
-        if (agentBlueprint == null) agentBlueprint = agent;
-        if (target)
-            agent.SetDestination(target.position);
         mRigidbody = GetComponent<Rigidbody>();
+        if (agentBlueprint == null) agentBlueprint = agent;
+        BeginNav();
 	}
 
     // Enemy was picked up by player
     public void PickedUp()
     {
-        agent.SetDestination(transform.localPosition);
         agent.enabled = false;
+        mRigidbody.mass *= massPickedUpScale;
     }
 
     // Player lets go of held enemy
     public void Dropped()
     {
         isFalling = true;
+        mRigidbody.useGravity = true;
+        mRigidbody.isKinematic = false;
+    }
+
+    private void Hit()
+    {
+        agent.enabled = false;
+
+        mRigidbody.useGravity = true;
+        mRigidbody.isKinematic = false;
+
+        isFalling = true;
+    }
+
+    private void BeginNav()
+    {
+            mRigidbody.isKinematic = true;
+            agent.enabled = true;
+            if (target)
+                agent.SetDestination(target.position);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(!collision.gameObject.CompareTag("ground"))
+        {
+            Hit();
+            GetComponent<Health>().TakeDamage(collision.relativeVelocity.magnitude);
+        }
     }
 
     private void OnCollisionStay(Collision collision)
@@ -38,22 +69,8 @@ public class EnemyMove : MonoBehaviour {
         if(isFalling && mRigidbody.velocity.sqrMagnitude == 0)
         {
             isFalling = false;
-            mRigidbody.isKinematic = true;
-            //agent = gameObject.AddComponent<NavMeshAgent>();
-            //agent = agentBlueprint;
-            agent.enabled = true;
-            agent.SetDestination(target.position);
-
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            print("reset");
-                //agent.ResetPath();
-                //agent.SetDestination(target.position);
+            BeginNav();
+            mRigidbody.mass /= massPickedUpScale;
         }
     }
 
