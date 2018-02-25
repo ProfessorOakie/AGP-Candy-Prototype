@@ -25,7 +25,6 @@ public class EnemyMove : MonoBehaviour {
     // Enemy was picked up by player
     public void PickedUp()
     {
-        agent.SetDestination(transform.localPosition);
         agent.enabled = false;
         mRigidbody.mass *= massPickedUpScale;
     }
@@ -40,7 +39,6 @@ public class EnemyMove : MonoBehaviour {
 
     private void Hit()
     {
-        agent.SetDestination(transform.localPosition);
         agent.enabled = false;
 
         mRigidbody.useGravity = true;
@@ -62,6 +60,7 @@ public class EnemyMove : MonoBehaviour {
         if(!collision.gameObject.CompareTag("ground"))
         {
             Hit();
+            GetComponent<Health>().TakeDamage(collision.relativeVelocity.magnitude);
         }
     }
 
@@ -72,16 +71,6 @@ public class EnemyMove : MonoBehaviour {
             isFalling = false;
             BeginNav();
             mRigidbody.mass /= massPickedUpScale;
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            print("reset");
-                //agent.ResetPath();
-                //agent.SetDestination(target.position);
         }
     }
 
