@@ -46,9 +46,11 @@
 			// Albedo comes from a texture tinted by color
 			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 			
-			float fillHeight = _FillPercent - 0.5f + 0.001f;
 
-			if (IN.localPos.y < fillHeight)
+			// TODO: calculate the 1.7f number (the half height) through code rather then hardcode it.
+			float fillHeight = (-_FillPercent*.2) + 0.1f - 0.001f;
+
+			if (IN.localPos.z > fillHeight)
 				c = _FillColor;
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables
