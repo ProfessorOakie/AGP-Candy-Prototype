@@ -7,6 +7,11 @@ public class WaveManager : Singleton<WaveManager> {
     private int WaveNumber = 0;
     private int SpawnZonePriorityTotals = 0;
 
+    [SerializeField]
+    private GameObject NewWaveEffect;
+    [SerializeField]
+    private GameObject WaveDefeatedEffect;
+
     // A list of all the spawn zones that exist
     private SpawnZone[] SpawnZones;
 
@@ -15,6 +20,9 @@ public class WaveManager : Singleton<WaveManager> {
         SpawnZones = FindObjectsOfType<SpawnZone>();
         foreach (var zone in SpawnZones)
             SpawnZonePriorityTotals += zone.GetSpawnPriority();
+
+        NewWaveEffect.SetActive(false);
+        WaveDefeatedEffect.SetActive(false);
 
         NewWave();
     }
@@ -28,8 +36,15 @@ public class WaveManager : Singleton<WaveManager> {
     // Time inbetween waves
     IEnumerator WaitForNextWave()
     {
-        Debug.LogWarning("TODO: Implemment hardcoded value");
+        Debug.LogWarning("TODO: Implemment hardcoded values");
+
+        WaveDefeatedEffect.SetActive(true);
         yield return new WaitForSeconds(3);
+        WaveDefeatedEffect.SetActive(false);
+        yield return new WaitForSeconds(3);
+        NewWaveEffect.SetActive(true);
+        yield return new WaitForSeconds(3);
+        NewWaveEffect.SetActive(false);
         NewWave();
     }
 
