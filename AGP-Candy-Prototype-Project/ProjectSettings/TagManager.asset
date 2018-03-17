@@ -7,6 +7,9 @@ TagManager:
   - FxTemporaire
   - projectile
   - Enemy
+  - Castle
+  - ground
+  - Daredevil
   layers:
   - Default
   - TransparentFX
