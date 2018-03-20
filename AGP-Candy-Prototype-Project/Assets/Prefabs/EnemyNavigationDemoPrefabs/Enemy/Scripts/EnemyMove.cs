@@ -10,6 +10,7 @@ public class EnemyMove : MonoBehaviour {
     private static NavMeshAgent agentBlueprint;
     private Rigidbody mRigidbody;
     private bool isFalling;
+    //private Animator mAnimator;
 
     [SerializeField]
     private float massPickedUpScale = 20.0f;
@@ -18,6 +19,9 @@ public class EnemyMove : MonoBehaviour {
     void Start () {
         agent = GetComponent<NavMeshAgent>();
         mRigidbody = GetComponent<Rigidbody>();
+        mRigidbody.isKinematic = true;
+        //mAnimator = GetComponent<Animator>();
+        //mAnimator.SetBool("isJumping", true);
         if (agentBlueprint == null) agentBlueprint = agent;
         BeginNav();
 	}
@@ -27,6 +31,8 @@ public class EnemyMove : MonoBehaviour {
     {
         agent.enabled = false;
         mRigidbody.mass *= massPickedUpScale;
+        //mAnimator.SetBool("isJumping", false);
+        gameObject.layer = LayerMask.NameToLayer("Weapon");
     }
 
     // Player lets go of held enemy
@@ -37,19 +43,30 @@ public class EnemyMove : MonoBehaviour {
         mRigidbody.isKinematic = false;
     }
 
-    private void Hit()
+    private void Hit(Collision collision)
     {
         agent.enabled = false;
 
         mRigidbody.useGravity = true;
         mRigidbody.isKinematic = false;
-
+        
         isFalling = true;
+        //mAnimator.SetBool("isJumping", false);
+        gameObject.layer = LayerMask.NameToLayer("Weapon");
+    }
+
+    private void GetUp()
+    {
+        isFalling = false;
+        BeginNav();
+        mRigidbody.mass /= massPickedUpScale;
+        //mAnimator.SetBool("isJumping", true);
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
     }
 
     private void BeginNav()
     {
-            mRigidbody.isKinematic = true;
+            //mRigidbody.isKinematic = true;
             agent.enabled = true;
             if (target)
                 agent.SetDestination(target.position);
@@ -59,7 +76,7 @@ public class EnemyMove : MonoBehaviour {
     {
         if(!collision.gameObject.CompareTag("ground"))
         {
-            Hit();
+            Hit(collision);
             GetComponent<Health>().TakeDamage(collision.relativeVelocity.magnitude);
         }
     }
@@ -68,9 +85,16 @@ public class EnemyMove : MonoBehaviour {
     {
         if(isFalling && mRigidbody.velocity.sqrMagnitude == 0)
         {
-            isFalling = false;
-            BeginNav();
-            mRigidbody.mass /= massPickedUpScale;
+            GetUp();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.gameObject.CompareTag("ground"))
+        {
+            if(mRigidbody)
+                mRigidbody.isKinematic = false;
         }
     }
 

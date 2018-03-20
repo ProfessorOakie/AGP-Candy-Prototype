@@ -17,6 +17,13 @@ public class EnemyHealth : Health {
         }
     }
 
+    private void Update()
+    {
+        // For Debug porpoises :)
+        if (Input.GetKeyDown(KeyCode.K))
+            TakeDamage(99999999);
+    }
+
     public override void TakeDamage(float amount)
     {
         base.TakeDamage(amount);
@@ -28,6 +35,11 @@ public class EnemyHealth : Health {
         }
     }
 
+    public override void Die()
+    {
+        GameManager.Instance.NumLivingEnemiesDecrement();
+        base.Die();
+    }
 
     private IEnumerator FlashRed(float duration)
     {
