@@ -6,21 +6,34 @@ using UnityEngine;
 public class EnemyWeaponTransformer : MonoBehaviour {
 
     Renderer[] renderers;
+    [SerializeField]
+    private Shader deformShader;
 
     [SerializeField]
     private GameObject weaponPrefab;
 
     private GameObject spawnedWeapon;
 
+    [SerializeField]
+    [Tooltip("Transform of the big part of the model to be stretched.")]
+    private Transform enemyModelTransform;
+
     private void Start()
     {
         renderers = GetComponentsInChildren<Renderer>();
+
+        if(enemyModelTransform == null)
+            enemyModelTransform = transform;
     }
 
     // Called once when the second hand grabs on to this enemy
     public void OnSecondHandGrab()
     {
         SpawnWeapon();
+
+        // Replace Shader
+        foreach (Renderer r in renderers)
+            r.material.shader = deformShader;
     }
 
     // Called in Update every frame while being held by a second hand
@@ -28,7 +41,7 @@ public class EnemyWeaponTransformer : MonoBehaviour {
     public void OnSecondHandHold(NewtonVR.NVRInteractableItem nvrIItem)
     {
         // Stretch Enemy
-        StretchModelToPositions(nvrIItem.AttachedHands[0].transform.position, nvrIItem.AttachedHands[1].transform.position);
+        StretchModelToPositions(enemyModelTransform, nvrIItem.AttachedHands[0].transform.position, nvrIItem.AttachedHands[1].transform.position);
 
         // Stretch Weapon
         if(spawnedWeapon)
@@ -40,6 +53,10 @@ public class EnemyWeaponTransformer : MonoBehaviour {
     {
         // End interaction with Enemy
         handStillHolding.EndInteraction(nvrIItem);
+
+        // Enable weapon Colliders until ready to be used
+        foreach (Collider c in spawnedWeapon.GetComponentsInChildren<Collider>())
+            c.enabled = true;
 
         // Start Interaction with Weapon
         handStillHolding.BeginInteraction(spawnedWeapon.GetComponent<NewtonVR.NVRInteractable>());
@@ -54,6 +71,10 @@ public class EnemyWeaponTransformer : MonoBehaviour {
         // Instantiate
         spawnedWeapon = Instantiate(weaponPrefab);
 
+        // Disable weapon Colliders until ready to be used
+        foreach (Collider c in spawnedWeapon.GetComponentsInChildren<Collider>())
+            c.enabled = false;
+
         // TODO effects
     }
 
@@ -63,14 +84,19 @@ public class EnemyWeaponTransformer : MonoBehaviour {
     /// </summary>
     /// <param name="position1">world space</param>
     /// <param name="position2">world space</param>
-    private void StretchModelToPositions(Vector3 position1, Vector3 position2)
+    private void StretchModelToPositions(Transform modelTransform, Vector3 position1, Vector3 position2)
     {
+        // Center the model
+        Vector3 middlePosition = (position1 + position2) / 2.0f;
+        modelTransform.position = middlePosition;
+
+
         // Used later to scale based on how far apart your points are
-        float scale = Vector3.Distance(position1, position2);
+        float distanceScale = Vector3.Distance(position1, position2);
 
         // Put the positions in model space
-        position1 -= transform.position;
-        position2 -= transform.position;
+        position1 -= modelTransform.position;
+        position2 -= modelTransform.position;
 
         // Normalize
         position1.Normalize();
@@ -78,20 +104,20 @@ public class EnemyWeaponTransformer : MonoBehaviour {
 
         // Inverse rotate the positions by the object's rotation
         // This makes it to the object can have any rotation but will still stretch towards your positions
-        position1 = Quaternion.Inverse(Quaternion.Euler(transform.eulerAngles)) * position1;
-        position2 = Quaternion.Inverse(Quaternion.Euler(transform.eulerAngles)) * position2;
+        position1 = Quaternion.Inverse(Quaternion.Euler(modelTransform.eulerAngles)) * position1;
+        position2 = Quaternion.Inverse(Quaternion.Euler(modelTransform.eulerAngles)) * position2;
 
         // Handle the scaling from the object
-        position1.x /= transform.localScale.x;
-        position1.y /= transform.localScale.y;
-        position1.z /= transform.localScale.z;
-        position2.x /= transform.localScale.x;
-        position2.y /= transform.localScale.y;
-        position2.z /= transform.localScale.z;
+        position1.x /= modelTransform.lossyScale.x;
+        position1.y /= modelTransform.lossyScale.y;
+        position1.z /= modelTransform.lossyScale.z;
+        position2.x /= modelTransform.lossyScale.x;
+        position2.y /= modelTransform.lossyScale.y;
+        position2.z /= modelTransform.lossyScale.z;
 
         // Scale based on distance between points
-        position1 *= scale;
-        position2 *= scale;
+        position1 *= distanceScale;
+        position2 *= distanceScale;
 
         // Send the positions to the shader
         for (int i = 0; i < renderers.Length; ++i)
@@ -109,17 +135,20 @@ public class EnemyWeaponTransformer : MonoBehaviour {
     /// <param name="position2">world space</param>
     private void ScaleModelToPositions(GameObject model, Vector3 position1, Vector3 position2)
     {
+        Vector3 middlePosition = (position1 + position2) / 2.0f;
+        model.transform.position = middlePosition;
+
         float scale = Vector3.Distance(position1, position2);
 
         // Rotate Model to be pointing along the axis
         Vector3 scaleAxis = position1 - position2;
-        model.transform.forward = scaleAxis;
+        model.transform.up = scaleAxis;
 
         // Scale model according to distance between points
         model.transform.localScale = new Vector3(
             model.transform.localScale.x,
-            model.transform.localScale.y, 
-            scale);
+            scale,
+            model.transform.localScale.z);
     }
 
 }
