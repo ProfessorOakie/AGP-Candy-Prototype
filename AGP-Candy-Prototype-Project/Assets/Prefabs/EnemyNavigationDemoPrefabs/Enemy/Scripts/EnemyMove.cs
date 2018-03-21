@@ -20,6 +20,9 @@ public class EnemyMove : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         mRigidbody = GetComponent<Rigidbody>();
         mRigidbody.isKinematic = true;
+
+        if (target == null) target = FindObjectOfType<CastleHealth>().transform;
+
         //mAnimator = GetComponent<Animator>();
         //mAnimator.SetBool("isJumping", true);
         if (agentBlueprint == null) agentBlueprint = agent;
