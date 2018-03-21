@@ -13,6 +13,7 @@ public class Enemy_InteractableItem : NVRInteractableItem
         base.Start();
         mTransformer = GetComponent<EnemyWeaponTransformer>();
         mMover = GetComponent<EnemyMove>();
+        AllowTwoHanded = true;
     }
 
     public override void BeginInteraction(NVRHand hand)
