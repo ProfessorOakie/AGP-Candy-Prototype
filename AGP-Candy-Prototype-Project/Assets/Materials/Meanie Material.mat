@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Meanie Material
-  m_Shader: {fileID: 4800000, guid: 0408fa7c45eed2f429d123db7fda0674, type: 3}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -74,4 +74,4 @@ Material:
     m_Colors:
     - _Color: {r: 0.86551726, g: 0.63640976, b: 0.8385634, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FillColor: {r: 1, g: 0, b: 0, a: 1}
+    - _FillColor: {r: 0.007352948, g: 0.0048659216, b: 0.0048659216, a: 1}
