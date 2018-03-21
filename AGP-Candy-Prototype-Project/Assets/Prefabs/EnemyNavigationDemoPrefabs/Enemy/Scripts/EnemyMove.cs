@@ -72,6 +72,11 @@ public class EnemyMove : MonoBehaviour {
                 agent.SetDestination(target.position);
     }
 
+    public void StopNav()
+    {
+        agent.enabled = false;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(!collision.gameObject.CompareTag("ground"))

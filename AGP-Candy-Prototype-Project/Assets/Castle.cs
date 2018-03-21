@@ -16,10 +16,12 @@ public class Castle : MonoBehaviour {
     {
         if(other.CompareTag("Enemy"))
         {
+            //Removed by Zach
+            /*
             Destroy(other.gameObject);
-
             Debug.LogWarning("Hard coded damage");
             castleHealth.TakeDamage(1);
+            */
         }
     }
 }
