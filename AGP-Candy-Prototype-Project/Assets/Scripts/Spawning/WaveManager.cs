@@ -59,9 +59,7 @@ public class WaveManager : Singleton<WaveManager> {
             int numEnemiesToSpawnInZone = Mathf.FloorToInt(((float)zone.GetSpawnPriority() / (float)SpawnZonePriorityTotals * (float) numEnemiesToBeSpawned) + 0.5f);
             for (int i = 0; i < numEnemiesToSpawnInZone; ++i)
             {
-                // Check enemy was successfully spawned
-                if (zone.SpawnObject())
-                    GameManager.Instance.NumLivingEnemiesIncrement();
+                zone.SpawnObject();
             }
         }
     }

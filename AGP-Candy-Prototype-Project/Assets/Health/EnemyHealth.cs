@@ -15,6 +15,8 @@ public class EnemyHealth : Health {
         {
             oldColors.Add(renderers[i].material.color);
         }
+        
+        GameManager.Instance.NumLivingEnemiesIncrement();
     }
 
     private void Update()
@@ -37,7 +39,6 @@ public class EnemyHealth : Health {
 
     public override void Die()
     {
-        GameManager.Instance.NumLivingEnemiesDecrement();
         base.Die();
     }
 
@@ -53,6 +54,11 @@ public class EnemyHealth : Health {
             for (int i = 0; i < renderers.Length; ++i)
                 renderers[i].material.color = oldColors[i];
 
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.NumLivingEnemiesDecrement();
     }
 
 }
