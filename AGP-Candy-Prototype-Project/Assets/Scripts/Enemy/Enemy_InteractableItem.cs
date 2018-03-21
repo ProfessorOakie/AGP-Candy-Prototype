@@ -6,10 +6,21 @@ using NewtonVR;
 public class Enemy_InteractableItem : NVRInteractableItem
 {
     private EnemyWeaponTransformer mTransformer;
+    private EnemyMove mMover;
+
+    protected override void Start()
+    {
+        base.Start();
+        mTransformer = GetComponent<EnemyWeaponTransformer>();
+        mMover = GetComponent<EnemyMove>();
+    }
 
     public override void BeginInteraction(NVRHand hand)
     {
         base.BeginInteraction(hand);
+        //Debug.Log("BeginInteraction: " + hand + ", numhands: " + AttachedHands.Count);
+
+        mMover.PickedUp();
 
         if( AttachedHands.Count == 2)
         {
@@ -22,6 +33,7 @@ public class Enemy_InteractableItem : NVRInteractableItem
     public override void InteractingUpdate(NVRHand hand)
     {
         base.InteractingUpdate(hand);
+        //Debug.Log("Interacting: numhands: " + AttachedHands.Count);
 
         if (AttachedHands.Count == 2)
         {
@@ -33,11 +45,14 @@ public class Enemy_InteractableItem : NVRInteractableItem
     public override void EndInteraction(NVRHand hand)
     {
         base.EndInteraction(hand);
+        //Debug.Log("EndInteraction: " + hand + " numhands: " + AttachedHands.Count);
+
+        mMover.Dropped();
 
         if (AttachedHands.Count == 1)
         {
             if (mTransformer != null)
-                mTransformer.OnSecondHandReleased(AttachedHand);
+                mTransformer.OnSecondHandReleased(AttachedHand, this);
         }
 
     }
