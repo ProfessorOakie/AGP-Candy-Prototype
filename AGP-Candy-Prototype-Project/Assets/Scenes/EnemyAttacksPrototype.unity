@@ -629,7 +629,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 0.2
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &729995434
@@ -699,14 +699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43919b0ef64c548efbf5ed65e71dcf86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints:
-  - {fileID: 1999086544}
-  - {fileID: 675107902}
-  - {fileID: 2043395024}
-  - {fileID: 1144089722}
-  - {fileID: 654260051}
-  - {fileID: 203143069}
-  explosion: {fileID: 54096187101246718, guid: c69188158bfd848ebbb9a46374dc95d3, type: 2}
+  spawnPoints: []
+  explosion: {fileID: 0}
 --- !u!95 &729995439
 Animator:
   serializedVersion: 3
@@ -1381,8 +1375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21405020b8af54924afb14c4d855d0ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combinedEnemy: {fileID: 1038718611233310, guid: b2c1587c69e0841c8a999cf47f6897c7,
-    type: 2}
+  combinedEnemy: {fileID: 0}
 --- !u!4 &1179280654
 Transform:
   m_ObjectHideFlags: 0
