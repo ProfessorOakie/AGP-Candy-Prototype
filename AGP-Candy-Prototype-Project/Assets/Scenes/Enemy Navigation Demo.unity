@@ -822,7 +822,7 @@ Prefab:
         type: 2}
       propertyPath: SpawnablePrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 1906571227068398, guid: bb08ca4b6640143bf838820d39c1f791,
+      objectReference: {fileID: 1420328333468898, guid: 6e11f814da006b84fa2dbe0dd83da941,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e90d802bbccb094d9a7cd80d9e23fc3, type: 2}
