@@ -13,7 +13,11 @@ public class StartGame : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKey (KeyCode.Space)) {
-			SceneManager.LoadScene (sceneName);
+			LoadGame ();
 		}
+	}
+
+	public void LoadGame () {
+		SceneManager.LoadScene (sceneName);
 	}
 }
