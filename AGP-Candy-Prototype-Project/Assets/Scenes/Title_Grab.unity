@@ -256,7 +256,7 @@ MonoBehaviour:
   DropDistance: 1
   EnableGravityOnDetach: 1
   AttachedHands: []
-  InteractionPoint: {fileID: 813490416}
+  InteractionPoint: {fileID: 0}
   OnUseButtonDown:
     m_PersistentCalls:
       m_Calls:
@@ -293,11 +293,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!4 &813490416 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000010030412268, guid: 308c89097ca814e44b0ff03d3c0c633b,
-    type: 2}
-  m_PrefabInternal: {fileID: 813490413}
 --- !u!136 &813490417
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -321,7 +316,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
