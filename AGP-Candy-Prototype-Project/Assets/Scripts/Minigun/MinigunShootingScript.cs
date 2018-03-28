@@ -10,10 +10,17 @@ public class MinigunShootingScript : MonoBehaviour {
     [SerializeField]
     private GameObject rayCastSource;
     [SerializeField]
+    private float range;
+    [SerializeField]
     private GameObject[] bulletSources;
-    private int currBulletSource;
+    private int currBulletSource = 0;
 
-    // Wait time
+    // Bullet speed
+    [SerializeField]
+    [Range(0, 50f)]
+    private float bulletSpeed;
+
+    // Shot wait time
     [SerializeField]
     [Range(0,5f)]
     [Tooltip("How many seconds between shots when holding down trigger")]
@@ -24,16 +31,11 @@ public class MinigunShootingScript : MonoBehaviour {
     [SerializeField]
     private GameObject skittleBulletPrefab;
 
-
-    private void Start()
-    {
-        currBulletSource = 0;
-    }
-
     private void FixedUpdate()
     {
         if (IsTriggerPulled())
         {
+            // Only allow shot if cooled down, prevent good trigger finger
             if (coolDownTimer <= 0)
             {
                 Fire();
@@ -41,6 +43,7 @@ public class MinigunShootingScript : MonoBehaviour {
                 coolDownTimer = timeBetweenShots;
             }
         }
+        // Decrement cooldown agnostic to trigger state
         if (coolDownTimer > 0)
         {
             coolDownTimer -= Time.fixedDeltaTime;
@@ -60,10 +63,15 @@ public class MinigunShootingScript : MonoBehaviour {
         GameObject _skittleBullet = (GameObject)Instantiate(skittleBulletPrefab, _sourcePos, Quaternion.identity);
         SkittleBulletScript _skittleBulletInfo = _skittleBullet.GetComponent<SkittleBulletScript>();
         // Raycast to find target
-        Vector3 _target = _sourcePos + Vector3.forward * 100f; //temp
-        // Pass target to skittlebullet
+        Vector3 _target = rayCastSource.transform.forward * range;
+        RaycastHit _targetInfo;
+        if(Physics.Raycast(rayCastSource.transform.position, rayCastSource.transform.forward, out _targetInfo, range))
+        {
+            _target = _targetInfo.transform.position;
+        }
+        // Pass target and speed to skittlebullet
+        _skittleBulletInfo.bulletSpeed = bulletSpeed;
         _skittleBulletInfo.target = _target;
-        Debug.Log("Setting _skittleBulletInfo.target to" + _skittleBulletInfo.target.ToString());
     }
 
     private void LoadNextBarrel()
@@ -71,5 +79,3 @@ public class MinigunShootingScript : MonoBehaviour {
         currBulletSource = (currBulletSource + 1) % NUM_BARRELS;
     }
 }
-
-//PUT BULLET SPEED IN HERE!

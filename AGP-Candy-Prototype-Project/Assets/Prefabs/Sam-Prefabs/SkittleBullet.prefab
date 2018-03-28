@@ -36,8 +36,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4563349957602406}
-  - component: {fileID: 114891510512706520}
   - component: {fileID: 54681714291069380}
+  - component: {fileID: 114891510512706520}
   m_Layer: 0
   m_Name: SkittleBullet
   m_TagString: Untagged
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90e1bec6e67b1ad4ea5ebc28edfceddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 0.5
+  bulletSpeed: 5
   target: {x: 0, y: 0, z: 0}
 --- !u!135 &135934732283282602
 SphereCollider:

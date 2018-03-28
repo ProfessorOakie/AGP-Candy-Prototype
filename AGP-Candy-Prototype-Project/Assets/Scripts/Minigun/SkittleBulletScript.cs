@@ -17,10 +17,8 @@ public class SkittleBulletScript : MonoBehaviour {
     };
 
     // Bullet Speed
-    [SerializeField]
-    [Range(0,5f)]
-    private float bulletSpeed;
-    private static float staticBulletSpeed;
+    [HideInInspector]
+    public float bulletSpeed;
 
     // Destination
     [HideInInspector]
@@ -37,13 +35,10 @@ public class SkittleBulletScript : MonoBehaviour {
 
     void Start () {
         // Initialize values
-        staticBulletSpeed = bulletSpeed;
         rb = GetComponent<Rigidbody>();
         // Set to random skittle color on start
         Renderer _rend = GetComponentInChildren<Renderer>();
         _rend.material.color = colors[Random.Range(0, colors.Length)];
-
-        Debug.Log("Starting skittlebulletscripr!");
     }
 
     private void FixedUpdate()
@@ -51,7 +46,6 @@ public class SkittleBulletScript : MonoBehaviour {
         // Set direction if not found already, but only if target is acquired
         if (!isDirectionFound)
         {
-            Debug.Log("SkittleBulletScript Fixed Update: target = " + target.ToString());
             if (target != Vector3.zero)
             {
                 direction = (target - transform.position).normalized;
@@ -61,7 +55,7 @@ public class SkittleBulletScript : MonoBehaviour {
         // Move along direction otherwise
         else
         {
-            rb.MovePosition(transform.position + direction * (staticBulletSpeed * Time.fixedDeltaTime));
+            rb.MovePosition(transform.position + direction * (bulletSpeed * Time.fixedDeltaTime));
         }
     }
 
