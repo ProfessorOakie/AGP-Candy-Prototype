@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CastleHealth : Health {
 
@@ -25,7 +26,7 @@ public class CastleHealth : Health {
 
 	public override void Die ()
 	{
-		Debug.Log("We dead");
+		SceneManager.LoadScene("Death");
 	}
 
 
