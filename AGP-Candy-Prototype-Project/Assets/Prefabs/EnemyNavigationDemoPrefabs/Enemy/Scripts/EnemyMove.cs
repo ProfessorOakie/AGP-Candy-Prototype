@@ -10,8 +10,22 @@ public class EnemyMove : MonoBehaviour {
     private static NavMeshAgent agentBlueprint;
     private Rigidbody mRigidbody;
     private bool isFalling;
+    //private Animator mAnimator;
+    private AudioSource mAudioSource;
 
-    [SerializeField]
+    // .wav file we want this enemy to play
+    public AudioClip mPickedUp;
+    public AudioClip mDropped;
+    public AudioClip mHit;
+
+    // do not delete audioSource or audioClip between levels -- just in case
+    void Awake()
+    {
+        DontDestroyOnLoad(mAudioSource);
+        DontDestroyOnLoad(mPickedUp);
+        DontDestroyOnLoad(mDropped);
+        DontDestroyOnLoad(mHit);
+    }
     private int MaxEnemyHitByEnemyDamage = 30;
 
     //private Animator mAnimator;
@@ -21,6 +35,10 @@ public class EnemyMove : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        // get the audioSource from the Enemy prefab
+        mAudioSource = GetComponent<AudioSource>();
+
         agent = GetComponent<NavMeshAgent>();
         mRigidbody = GetComponent<Rigidbody>();
         mRigidbody.isKinematic = true;
@@ -36,6 +54,9 @@ public class EnemyMove : MonoBehaviour {
     // Enemy was picked up by player
     public void PickedUp()
     {
+        // play designated audio clip
+        mAudioSource.PlayOneShot(mPickedUp, 0.5f);
+
         agent.enabled = false;
         //mRigidbody.mass *= massPickedUpScale;
         //mAnimator.SetBool("isJumping", false);
@@ -45,6 +66,8 @@ public class EnemyMove : MonoBehaviour {
     // Player lets go of held enemy
     public void Dropped()
     {
+        mAudioSource.PlayOneShot(mDropped, 0.5f);
+
         isFalling = true;
         mRigidbody.useGravity = true;
         mRigidbody.isKinematic = false;
@@ -52,6 +75,8 @@ public class EnemyMove : MonoBehaviour {
 
     private void Hit(Collision collision)
     {
+        mAudioSource.PlayOneShot(mHit, 0.5f);
+
         agent.enabled = false;
 
         mRigidbody.useGravity = true;

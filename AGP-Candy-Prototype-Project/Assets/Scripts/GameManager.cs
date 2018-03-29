@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager> {
 
+
+
     private int numberLivingEnemies = 0;
 	private bool gameStarted = false;
 

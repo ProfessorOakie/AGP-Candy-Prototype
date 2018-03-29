@@ -19,8 +19,9 @@ public class EnemyGenerator : MonoBehaviour
     private int enemyCounter;
     private Coroutine enemyGeneratorCoroutine;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         Vector3 generationSurface = gameObject.GetComponent<Collider>().bounds.extents;
         minRadius = minGenerationRadiusPercentage * Mathf.Min(generationSurface.x, generationSurface.z);
         maxRadius = maxGenerationRadiusPercentage * Mathf.Min(generationSurface.x, generationSurface.z);
