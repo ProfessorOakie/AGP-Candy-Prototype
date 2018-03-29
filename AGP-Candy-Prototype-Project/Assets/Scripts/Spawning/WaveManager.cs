@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class WaveManager : Singleton<WaveManager> {
 
-    private int WaveNumber = 0;
+    private int WaveNumber = 1;
     private int SpawnZonePriorityTotals = 0;
 
     [SerializeField]
-    private GameObject NewWaveEffect;
+    private GameObject NewWaveText;
     [SerializeField]
-    private GameObject WaveDefeatedEffect;
+    private GameObject WaveDefeatedText;
 
     // A list of all the spawn zones that exist
     private SpawnZone[] SpawnZones;
@@ -21,37 +21,61 @@ public class WaveManager : Singleton<WaveManager> {
         foreach (var zone in SpawnZones)
             SpawnZonePriorityTotals += zone.GetSpawnPriority();
 
-        NewWaveEffect.SetActive(false);
-        WaveDefeatedEffect.SetActive(false);
-
-        NewWave();
+        NewWaveText.SetActive(false);
+        WaveDefeatedText.SetActive(false);
     }
+
+	// Used by Game Manager when the game has started
+	public void GameStart()
+	{
+		StartCoroutine(NewWaveEffect());
+		StartCoroutine(InitializeSpawn());
+	}
     
     // The last enemy was just killed
     public void EndOfWave()
     {
+		++WaveNumber;
         StartCoroutine(WaitForNextWave());
     }
 
     // Time inbetween waves
     IEnumerator WaitForNextWave()
-    {
+    {	
+		NewWaveText.GetComponent<SimpleHelvetica>().Text = "WAVE " + WaveNumber;
+		NewWaveText.GetComponent<SimpleHelvetica>().GenerateText();
         Debug.LogWarning("TODO: Implemment hardcoded values");
 
-        WaveDefeatedEffect.SetActive(true);
+        WaveDefeatedText.SetActive(true);
         yield return new WaitForSeconds(3);
-        WaveDefeatedEffect.SetActive(false);
+        WaveDefeatedText.SetActive(false);
         yield return new WaitForSeconds(3);
-        NewWaveEffect.SetActive(true);
+        NewWaveText.SetActive(true);
         yield return new WaitForSeconds(3);
-        NewWaveEffect.SetActive(false);
-        NewWave();
+        NewWaveText.SetActive(false);
+		StartCoroutine(InitializeSpawn());
     }
 
+	IEnumerator NewWaveEffect()
+	{
+		NewWaveText.GetComponent<SimpleHelvetica>().Text = "WAVE " + WaveNumber;
+		NewWaveText.GetComponent<SimpleHelvetica>().GenerateText();
+
+		NewWaveText.SetActive(true);
+		yield return new WaitForSeconds(3);
+		NewWaveText.SetActive(false);	
+	}
+
+	IEnumerator WaveDefeatedEffect()
+	{
+		WaveDefeatedText.SetActive(true);
+		yield return new WaitForSeconds(3);
+		WaveDefeatedText.SetActive(false);	
+	}
+
     // Spawns new enemies in the zones based on their priority.
-    private void NewWave()
+	IEnumerator InitializeSpawn()
     {
-        ++WaveNumber;
         Debug.LogWarning("TODO: make this number calculated as designer specifies");
         int numEnemiesToBeSpawned = WaveNumber * 3; 
         foreach(var zone in SpawnZones)
@@ -60,6 +84,7 @@ public class WaveManager : Singleton<WaveManager> {
             for (int i = 0; i < numEnemiesToSpawnInZone; ++i)
             {
                 zone.SpawnObject();
+				yield return new WaitForSeconds(2);
             }
         }
     }
