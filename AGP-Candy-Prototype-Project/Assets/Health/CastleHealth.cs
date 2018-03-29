@@ -23,6 +23,11 @@ public class CastleHealth : Health {
         StartCoroutine(FlashBlue(1.0f));
     }
 
+	public override void Die ()
+	{
+		Debug.Log("We dead");
+	}
+
 
     private IEnumerator FlashBlue(float duration)
     {
