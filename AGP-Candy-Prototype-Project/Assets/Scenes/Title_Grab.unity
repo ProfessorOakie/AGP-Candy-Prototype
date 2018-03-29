@@ -191,7 +191,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010030412268, guid: 308c89097ca814e44b0ff03d3c0c633b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.3
+      value: 1.408
       objectReference: {fileID: 0}
     - target: {fileID: 4000010030412268, guid: 308c89097ca814e44b0ff03d3c0c633b, type: 2}
       propertyPath: m_LocalPosition.z
@@ -254,7 +254,7 @@ MonoBehaviour:
   DisableKinematicOnAttach: 1
   EnableKinematicOnDetach: 0
   DropDistance: 1
-  EnableGravityOnDetach: 1
+  EnableGravityOnDetach: 0
   AttachedHands: []
   InteractionPoint: {fileID: 0}
   OnUseButtonDown:

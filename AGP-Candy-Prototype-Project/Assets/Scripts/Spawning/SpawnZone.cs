@@ -12,6 +12,9 @@ public class SpawnZone : MonoBehaviour {
     [SerializeField]
     private GameObject[] SpawnablePrefabs;
 
+	[SerializeField]
+	private GameObject SpawnParticlePrefab;
+
     private void Start()
     {
         boxSpawnZone = GetComponent<BoxCollider>();
@@ -25,6 +28,12 @@ public class SpawnZone : MonoBehaviour {
         {
             int indexToSpawn = Random.Range(0, SpawnablePrefabs.Length);
             GameObject spawnedObject = Instantiate(SpawnablePrefabs[indexToSpawn], GetSpawnPosition(), GetSpawnRotation());
+
+			if (SpawnParticlePrefab) {
+				GameObject spawnEffect = Instantiate(SpawnParticlePrefab);
+				Destroy(spawnEffect, spawnEffect.GetComponent<ParticleSystem>().duration);
+			}
+
             return spawnedObject;
         }
         else

@@ -28,7 +28,7 @@ public class EnemyMove : MonoBehaviour {
         if (agentBlueprint == null) agentBlueprint = agent;
         BeginNav();
 	}
-
+		
     // Enemy was picked up by player
     public void PickedUp()
     {
