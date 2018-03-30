@@ -432,7 +432,7 @@ MonoBehaviour:
   deformShader: {fileID: 0}
   weaponPrefab: {fileID: 0}
   enemyModelTransform: {fileID: 0}
-  distForFullTransform: 0.3
+  distForFullTransform: 1
   blendShapeRenderers:
   - {fileID: 137765730781381770}
 --- !u!114 &114428629825560686

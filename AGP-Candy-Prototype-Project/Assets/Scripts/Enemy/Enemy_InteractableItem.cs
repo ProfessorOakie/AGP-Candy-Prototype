@@ -5,7 +5,6 @@ using NewtonVR;
 
 public class Enemy_InteractableItem : NVRInteractableItem
 {
-    [SerializeField]
     private EnemyWeaponTransformer mTransformer;
     private EnemyMove mMover;
 

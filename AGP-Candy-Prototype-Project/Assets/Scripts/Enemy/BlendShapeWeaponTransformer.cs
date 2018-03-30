@@ -14,6 +14,8 @@ public class BlendShapeWeaponTransformer : EnemyWeaponTransformer {
     [SerializeField]
     private SkinnedMeshRenderer[] blendShapeRenderers;
 
+    private Vector3 initialScale;
+
     protected override void Start()
     {
         Debug.LogWarning("TODO: make this class inherit from a generic Transformer class.");
@@ -22,6 +24,8 @@ public class BlendShapeWeaponTransformer : EnemyWeaponTransformer {
         weaponScript.enabled = false;
         weaponHealthScript = GetComponent<WeaponHealth>();
         weaponHealthScript.enabled = false;
+
+        initialScale = transform.localScale;
     }
 
     // Called once when the second hand grabs on to this enemy
@@ -86,10 +90,7 @@ public class BlendShapeWeaponTransformer : EnemyWeaponTransformer {
         model.transform.up = scaleAxis;
 
         // Scale model according to distance between points
-        model.transform.localScale = new Vector3(
-            scale,
-            scale,
-            scale);
+        model.transform.localScale = initialScale * scale;
     }
 
 }
