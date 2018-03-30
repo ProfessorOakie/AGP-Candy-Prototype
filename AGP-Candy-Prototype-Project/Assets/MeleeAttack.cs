@@ -34,7 +34,10 @@ public class MeleeAttack : EnemyAttack {
             attackTimer -= Time.deltaTime;
             if(attackTimer<=0)
             {
-                anim.SetTrigger("Attack");
+                if (anim != null)
+                    anim.SetTrigger("Attack");
+                else
+                    Debug.LogWarning("Enemy performing Melee Attack without animation.");
                 castle.GetComponent<CastleHealth>().TakeDamage(mEnemyDamage);
                 attackTimer = mTimeBetweenAttacks;
             }

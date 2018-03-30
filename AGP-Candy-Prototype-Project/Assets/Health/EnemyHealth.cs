@@ -58,7 +58,10 @@ public class EnemyHealth : Health {
 
     private void OnDestroy()
     {
-        GameManager.Instance.NumLivingEnemiesDecrement();
+        if (GameManager.Instance != null)
+            GameManager.Instance.NumLivingEnemiesDecrement();
+        else
+            Debug.LogWarning("Tried to access a null singleton");
     }
 
 }

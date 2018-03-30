@@ -96,13 +96,14 @@ GameObject:
   - component: {fileID: 65038009783787034}
   - component: {fileID: 114090201698194808}
   - component: {fileID: 114074767011181672}
+  - component: {fileID: 114754848986478646}
   m_Layer: 9
   m_Name: Meanie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1649728298531618
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +244,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1420328333468898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.35, y: 0.347, z: 0.93}
+  m_LocalPosition: {x: -3.25, y: 0.347, z: -3.17}
   m_LocalScale: {x: 0.37424505, y: 0.37424502, z: 0.37424502}
   m_Children:
   - {fileID: 4841580771472998}
@@ -713,6 +714,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  mTransformer: {fileID: 0}
 --- !u!114 &114396556937862376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -738,6 +740,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaxHealth: 100
+--- !u!114 &114754848986478646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1420328333468898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6f7e53f72e925c479c4308ed08e8197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mEnemyDamage: 1
+  mTimeBetweenAttacks: 1
 --- !u!114 &114990623450780134
 MonoBehaviour:
   m_ObjectHideFlags: 1
