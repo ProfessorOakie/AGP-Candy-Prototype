@@ -11,7 +11,7 @@ using UnityEngine;
 /// </summary>
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T _instance;
+    private static T _instance = null;
 
     private static object _lock = new object();
 

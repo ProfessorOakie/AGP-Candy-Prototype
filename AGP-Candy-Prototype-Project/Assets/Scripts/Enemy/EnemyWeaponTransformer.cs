@@ -18,8 +18,10 @@ public class EnemyWeaponTransformer : MonoBehaviour {
     [Tooltip("Transform of the big part of the model to be stretched.")]
     private Transform enemyModelTransform;
 
-    private void Start()
+    protected virtual void Start()
     {
+        Debug.LogWarning("TODO: make this class inherit from a generic Transformer class.");
+
         renderers = GetComponentsInChildren<Renderer>();
 
         if(enemyModelTransform == null)
@@ -27,7 +29,7 @@ public class EnemyWeaponTransformer : MonoBehaviour {
     }
 
     // Called once when the second hand grabs on to this enemy
-    public void OnSecondHandGrab()
+    public virtual void OnSecondHandGrab()
     {
         SpawnWeapon();
 
@@ -38,7 +40,7 @@ public class EnemyWeaponTransformer : MonoBehaviour {
 
     // Called in Update every frame while being held by a second hand
     // DON'T LET GO JACK ;(
-    public void OnSecondHandHold(NewtonVR.NVRInteractableItem nvrIItem)
+    public virtual void OnSecondHandHold(NewtonVR.NVRInteractableItem nvrIItem)
     {
         // Stretch Enemy
         StretchModelToPositions(enemyModelTransform, nvrIItem.AttachedHands[0].transform.position, nvrIItem.AttachedHands[1].transform.position);
@@ -49,7 +51,7 @@ public class EnemyWeaponTransformer : MonoBehaviour {
     }
 
     // Called once one hand lets go. Aka only 1 hand is left holding on
-    public void OnSecondHandReleased(NewtonVR.NVRHand handStillHolding, NewtonVR.NVRInteractableItem nvrIItem)
+    public virtual void OnSecondHandReleased(NewtonVR.NVRHand handStillHolding, NewtonVR.NVRInteractableItem nvrIItem)
     {
         // End interaction with Enemy
         handStillHolding.EndInteraction(nvrIItem);
@@ -130,6 +132,7 @@ public class EnemyWeaponTransformer : MonoBehaviour {
 
     /// <summary>
     /// Scales the model to the 2 points.
+    /// Scales along 1 axis.
     /// </summary>
     /// <param name="position1">world space</param>
     /// <param name="position2">world space</param>
