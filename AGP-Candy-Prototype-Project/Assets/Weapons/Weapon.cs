@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour {
+public class Weapon : MonoBehaviour
+{
 
     [SerializeField]
     protected float mDamageScale;
@@ -21,28 +22,28 @@ public class Weapon : MonoBehaviour {
     //        interactableItem.AttachedHand.TriggerHapticPulse(500);
     //    }
     //}
-
-
+    
     protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             var enemy = collision.gameObject;
-            enemy.GetComponent<EnemyHealth>().TakeDamage((collision.relativeVelocity.magnitude)*mDamageScale);
+            enemy.GetComponent<EnemyHealth>().TakeDamage((collision.relativeVelocity.magnitude) * mDamageScale);
             Debug.LogWarning("Hardcoded Weapon Damage");
             GetComponent<WeaponHealth>().TakeDamage(1);
-            if (interactableItem.AttachedHand != null)
+
+            if (interactableItem == null)
+                interactableItem = GetComponent<NewtonVR.NVRInteractableItem>();
+            if (interactableItem != null)
             {
-                rumbling = true;
+                if (interactableItem.AttachedHand != null)
+                {
+                    rumbling = true;
 
-                interactableItem.AttachedHand.TriggerHapticPulse(1000, NewtonVR.NVRButtons.Touchpad);
-                
+                    interactableItem.AttachedHand.TriggerHapticPulse(1000, NewtonVR.NVRButtons.Touchpad);
+
+                }
             }
-
         }
-
-
     }
-
-    
 }

@@ -27,7 +27,7 @@ public class EnemySpin : MonoBehaviour {
             lastAxisRotation = transform.rotation.y;
 
             enemyRadius = GetComponentInChildren<Renderer>().bounds.extents.y;
-            Debug.Log(enemyRadius);
+            //Debug.Log(enemyRadius);
             enemyCircumference = enemyRadius * 2 * Mathf.PI;
         }
         else 

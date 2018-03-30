@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4648145971162890}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DonutModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4159749556500480}
   - component: {fileID: 33407963300556934}
   - component: {fileID: 23915461549945744}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4707559967248044}
   - component: {fileID: 33117211784458478}
   - component: {fileID: 23790417343203492}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4209808135893396}
   - component: {fileID: 33517474437161290}
   - component: {fileID: 23746299986934072}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,11 +93,14 @@ GameObject:
   - component: {fileID: 65668744938037988}
   - component: {fileID: 65556735817232726}
   - component: {fileID: 114892072465319968}
-  - component: {fileID: 114693450492186228}
   - component: {fileID: 114590253425316948}
-  m_Layer: 0
+  - component: {fileID: 114380807399997320}
+  - component: {fileID: 114428629825560686}
+  - component: {fileID: 114951375127482982}
+  - component: {fileID: 114099142145740472}
+  m_Layer: 9
   m_Name: Meanie-Donut
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4022964122990920}
   - component: {fileID: 137765730781381770}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Donut_Torus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +167,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1906571227068398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4830308, y: 9.8048597e-17, z: -4.4157157}
+  m_LocalPosition: {x: 2.11, y: 0.65, z: -1.08}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4648145971162890}
@@ -375,6 +378,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaxHealth: 100
+--- !u!114 &114099142145740472
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1906571227068398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6f7e53f72e925c479c4308ed08e8197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mEnemyDamage: 1
+  mTimeBetweenAttacks: 1
 --- !u!114 &114130297076282030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -402,6 +418,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   massPickedUpScale: 20
+--- !u!114 &114380807399997320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1906571227068398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca88ab05cedbc98428fe77c9860a58c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deformShader: {fileID: 0}
+  weaponPrefab: {fileID: 0}
+  enemyModelTransform: {fileID: 0}
+  distForFullTransform: 0.3
+  blendShapeRenderers:
+  - {fileID: 137765730781381770}
+--- !u!114 &114428629825560686
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1906571227068398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb85e75240be4bd49bf06ee12bee8293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mDamageScale: 3
 --- !u!114 &114590253425316948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -415,21 +460,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderedModel: {fileID: 1188856197257864}
   shouldSpin: 1
---- !u!114 &114693450492186228
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1906571227068398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7deacb338d3bb408b1dc5a850af9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deformShader: {fileID: 4800000, guid: 34cca27dc86121a42ba99fff190d87c9, type: 3}
-  weaponPrefab: {fileID: 1086218493092550, guid: 55e6f485de88fa94087e1999aa1ae121,
-    type: 2}
-  enemyModelTransform: {fileID: 0}
 --- !u!114 &114892072465319968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -475,6 +505,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  mTransformer: {fileID: 114380807399997320}
+--- !u!114 &114951375127482982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1906571227068398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb6f433e69abc5409bd427ab3550921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mMaxHealth: 2500
 --- !u!137 &137765730781381770
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
