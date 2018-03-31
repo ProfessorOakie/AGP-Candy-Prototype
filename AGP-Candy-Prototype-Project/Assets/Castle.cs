@@ -11,7 +11,7 @@ public class Castle : MonoBehaviour {
         castleHealth = GetComponent<CastleHealth>();
 	}
 	
-
+    //TODO this won't work using the "AttackPoint" thing which is a collider in a different part of the object
     public void OnTriggerEnter (Collider other)
     {
         if(other.CompareTag("Enemy"))

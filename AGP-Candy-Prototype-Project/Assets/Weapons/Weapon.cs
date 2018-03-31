@@ -25,12 +25,16 @@ public class Weapon : MonoBehaviour
     
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (!isActiveAndEnabled) return;
+
+        var enemy = collision.gameObject;
+        var enemyHealth = enemy.GetComponent<EnemyHealth>();
+
+        if (enemyHealth)
         {
-            var enemy = collision.gameObject;
-            enemy.GetComponent<EnemyHealth>().TakeDamage((collision.relativeVelocity.magnitude) * mDamageScale);
-            Debug.LogWarning("Hardcoded Weapon Damage");
-            GetComponent<WeaponHealth>().TakeDamage(1);
+            float damage = (collision.relativeVelocity.magnitude) * mDamageScale;
+            enemyHealth.TakeDamage(damage);
+            GetComponent<WeaponHealth>().TakeDamage(damage);
 
             if (interactableItem == null)
                 interactableItem = GetComponent<NewtonVR.NVRInteractableItem>();

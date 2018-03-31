@@ -16,6 +16,7 @@ public class Health : MonoBehaviour {
 
     public virtual void TakeDamage(float amount)
     {
+        Debug.Log(gameObject.name + gameObject.GetInstanceID() + " :: damage: " + amount + " :: time: " + Time.time);
         mCurrentHealth -= amount;
         if (mCurrentHealth <= 0)
             Die();

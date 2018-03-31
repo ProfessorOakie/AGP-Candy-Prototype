@@ -10,10 +10,14 @@ public class EnemyMove : MonoBehaviour {
     private static NavMeshAgent agentBlueprint;
     private Rigidbody mRigidbody;
     private bool isFalling;
-    //private Animator mAnimator;
 
     [SerializeField]
-    private float massPickedUpScale = 20.0f;
+    private int MaxEnemyHitByEnemyDamage = 30;
+
+    //private Animator mAnimator;
+
+    //[SerializeField]
+    //private float massPickedUpScale = 20.0f;
 
     // Use this for initialization
     void Start () {
@@ -21,19 +25,19 @@ public class EnemyMove : MonoBehaviour {
         mRigidbody = GetComponent<Rigidbody>();
         mRigidbody.isKinematic = true;
 
-        if (target == null) target = FindObjectOfType<CastleHealth>().transform;
+        if (target == null) target = FindObjectOfType<CastleHealth>().GetAttackPoint();
 
         //mAnimator = GetComponent<Animator>();
         //mAnimator.SetBool("isJumping", true);
         if (agentBlueprint == null) agentBlueprint = agent;
         BeginNav();
 	}
-
+		
     // Enemy was picked up by player
     public void PickedUp()
     {
         agent.enabled = false;
-        mRigidbody.mass *= massPickedUpScale;
+        //mRigidbody.mass *= massPickedUpScale;
         //mAnimator.SetBool("isJumping", false);
         gameObject.layer = LayerMask.NameToLayer("Weapon");
     }
@@ -62,7 +66,7 @@ public class EnemyMove : MonoBehaviour {
     {
         isFalling = false;
         BeginNav();
-        mRigidbody.mass /= massPickedUpScale;
+        //mRigidbody.mass /= massPickedUpScale;
         //mAnimator.SetBool("isJumping", true);
         gameObject.layer = LayerMask.NameToLayer("Enemy");
     }
@@ -85,7 +89,7 @@ public class EnemyMove : MonoBehaviour {
         if(!collision.gameObject.CompareTag("ground"))
         {
             Hit(collision);
-            GetComponent<Health>().TakeDamage(collision.relativeVelocity.magnitude);
+            GetComponent<Health>().TakeDamage(Mathf.Min(collision.relativeVelocity.magnitude, MaxEnemyHitByEnemyDamage));
         }
     }
 
