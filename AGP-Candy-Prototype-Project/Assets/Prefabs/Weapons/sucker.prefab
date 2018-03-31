@@ -215,7 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb6f433e69abc5409bd427ab3550921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMaxHealth: 5000
+  mMaxHealth: 800
+  WeaponDamagePerTime: 20
+  TimeBetweenDamages: 0.5
 --- !u!114 &114307149580031638
 MonoBehaviour:
   m_ObjectHideFlags: 1

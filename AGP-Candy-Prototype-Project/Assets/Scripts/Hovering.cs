@@ -10,7 +10,6 @@ public class Hovering : MonoBehaviour {
 	[SerializeField]
 	private float period;
 
-	[SerializeField]
 	private float verticalShift;
 
 	[SerializeField]
@@ -18,7 +17,7 @@ public class Hovering : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        verticalShift = transform.position.y;
 	}
 	
 	// Update is called once per frame

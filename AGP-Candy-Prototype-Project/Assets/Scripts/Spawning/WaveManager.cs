@@ -84,7 +84,7 @@ public class WaveManager : Singleton<WaveManager> {
             for (int i = 0; i < numEnemiesToSpawnInZone; ++i)
             {
                 zone.SpawnObject();
-				yield return new WaitForSeconds(2);
+				yield return new WaitForSeconds(1);
             }
         }
     }

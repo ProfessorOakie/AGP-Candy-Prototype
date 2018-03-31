@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GolfClubWeapon : Weapon {
+public class GolfClubWeapon : Weapon
+{
 
     //this is the damage scale of the "Sweet Spot"
     [SerializeField]
@@ -17,20 +18,24 @@ public class GolfClubWeapon : Weapon {
 
     protected override void OnCollisionEnter(Collision collision)
     {
+        var enemy = collision.gameObject;
+        var enemyHealth = enemy.GetComponent<EnemyHealth>();
 
-        if (collision.gameObject.CompareTag("Enemy") &&
-            (collision.contacts[0].thisCollider.Equals(clubCollider)))
+        Debug.LogWarning("TODO: cleanup this polymorphism");
+
+        if (enemyHealth && (collision.contacts[0].thisCollider.Equals(clubCollider)))
         {
-            var enemy = collision.gameObject;
-            enemy.GetComponent<EnemyHealth>().TakeDamage((collision.relativeVelocity.magnitude) * mClubDamageScale);
-            GetComponent<WeaponHealth>().TakeDamage(1);
-            if(interactableItem.AttachedHand != null)
+            float damage = (collision.relativeVelocity.magnitude) * mClubDamageScale;
+            enemyHealth.TakeDamage(damage);
+            GetComponent<WeaponHealth>().TakeDamage(damage);
+
+            if (interactableItem.AttachedHand != null)
             {
                 rumbling = true;
                 interactableItem.AttachedHand.TriggerHapticPulse(1000, NewtonVR.NVRButtons.Touchpad);
             }
 
-           
+
         }
         else
         {
@@ -39,7 +44,7 @@ public class GolfClubWeapon : Weapon {
 
     }
 
- 
+
 
 
 }

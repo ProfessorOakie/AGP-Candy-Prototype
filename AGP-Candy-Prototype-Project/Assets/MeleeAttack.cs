@@ -22,7 +22,7 @@ public class MeleeAttack : EnemyAttack {
         {
             castle = collision.gameObject;
             attackTimer = mTimeBetweenAttacks;
-            castle.GetComponent<CastleHealth>().TakeDamage(mEnemyDamage);
+            castle.GetComponentInParent<CastleHealth>().TakeDamage(mEnemyDamage);
         }
     }
 
@@ -38,7 +38,7 @@ public class MeleeAttack : EnemyAttack {
                     anim.SetTrigger("Attack");
                 else
                     Debug.LogWarning("Enemy performing Melee Attack without animation.");
-                castle.GetComponent<CastleHealth>().TakeDamage(mEnemyDamage);
+                castle.GetComponentInParent<CastleHealth>().TakeDamage(mEnemyDamage);
                 attackTimer = mTimeBetweenAttacks;
             }
 

@@ -103,7 +103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1649728298531618
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +714,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  mTransformer: {fileID: 0}
 --- !u!114 &114396556937862376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -727,7 +726,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  massPickedUpScale: 20
 --- !u!114 &114617622899790174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -776,7 +774,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1.04
-  m_Speed: 0.3
+  m_Speed: 0.6
   m_Acceleration: 8
   avoidancePriority: 80
   m_AngularSpeed: 120
