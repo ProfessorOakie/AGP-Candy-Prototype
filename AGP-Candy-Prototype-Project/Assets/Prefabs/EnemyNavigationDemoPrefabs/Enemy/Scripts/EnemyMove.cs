@@ -18,6 +18,12 @@ public class EnemyMove : MonoBehaviour {
     public AudioClip mDropped;
     public AudioClip mHit;
 
+    private int MaxEnemyHitByEnemyDamage = 30;
+    //private Animator mAnimator;
+
+    //[SerializeField]
+    //private float massPickedUpScale = 20.0f;
+
     // do not delete audioSource or audioClip between levels -- just in case
     void Awake()
     {
@@ -26,12 +32,6 @@ public class EnemyMove : MonoBehaviour {
         DontDestroyOnLoad(mDropped);
         DontDestroyOnLoad(mHit);
     }
-    private int MaxEnemyHitByEnemyDamage = 30;
-
-    //private Animator mAnimator;
-
-    //[SerializeField]
-    //private float massPickedUpScale = 20.0f;
 
     // Use this for initialization
     void Start () {

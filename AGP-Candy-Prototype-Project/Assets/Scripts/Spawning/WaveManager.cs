@@ -29,48 +29,44 @@ public class WaveManager : Singleton<WaveManager> {
 	public void GameStart()
 	{
 		StartCoroutine(NewWaveEffect());
-		StartCoroutine(InitializeSpawn());
 	}
     
     // The last enemy was just killed
     public void EndOfWave()
     {
 		++WaveNumber;
-        StartCoroutine(WaitForNextWave());
-    }
-
-    // Time inbetween waves
-    IEnumerator WaitForNextWave()
-    {	
-		NewWaveText.GetComponent<SimpleHelvetica>().Text = "WAVE " + WaveNumber;
-		NewWaveText.GetComponent<SimpleHelvetica>().GenerateText();
-        Debug.LogWarning("TODO: Implemment hardcoded values");
-
-        WaveDefeatedText.SetActive(true);
-        yield return new WaitForSeconds(3);
-        WaveDefeatedText.SetActive(false);
-        yield return new WaitForSeconds(3);
-        NewWaveText.SetActive(true);
-        yield return new WaitForSeconds(3);
-        NewWaveText.SetActive(false);
-		StartCoroutine(InitializeSpawn());
+        StartCoroutine(WaveDefeatedEffect());
     }
 
 	IEnumerator NewWaveEffect()
 	{
-		NewWaveText.GetComponent<SimpleHelvetica>().Text = "WAVE " + WaveNumber;
+		StartCoroutine(InitializeSpawn());
+
+        NewWaveText.GetComponent<SimpleHelvetica>().Text = "WAVE " + WaveNumber;
 		NewWaveText.GetComponent<SimpleHelvetica>().GenerateText();
 
 		NewWaveText.SetActive(true);
-		yield return new WaitForSeconds(3);
-		NewWaveText.SetActive(false);	
-	}
 
-	IEnumerator WaveDefeatedEffect()
+        var fx = NewWaveText.GetComponentInParent<WaveDefeatedEffects>();
+        if (fx) fx.PlayEffects();
+
+        yield return new WaitForSeconds(3);
+		NewWaveText.SetActive(false);
+        
+    }
+
+    IEnumerator WaveDefeatedEffect()
 	{
 		WaveDefeatedText.SetActive(true);
+
+        var fx = WaveDefeatedText.GetComponentInParent<WaveDefeatedEffects>();
+        if (fx) fx.PlayEffects();
+
 		yield return new WaitForSeconds(3);
-		WaveDefeatedText.SetActive(false);	
+		WaveDefeatedText.SetActive(false);
+
+        yield return new WaitForSeconds(2);
+        StartCoroutine(NewWaveEffect());
 	}
 
     // Spawns new enemies in the zones based on their priority.

@@ -21,7 +21,8 @@ public class Enemy_InteractableItem : NVRInteractableItem
         base.BeginInteraction(hand);
         //Debug.Log("BeginInteraction: " + hand + ", numhands: " + AttachedHands.Count);
 
-        mMover.PickedUp();
+        if(mMover)
+            mMover.PickedUp();
 
         if( AttachedHands.Count == 2)
         {
@@ -48,7 +49,8 @@ public class Enemy_InteractableItem : NVRInteractableItem
         base.EndInteraction(hand);
         //Debug.Log("EndInteraction: " + hand + " numhands: " + AttachedHands.Count);
 
-        mMover.Dropped();
+        if (mMover)
+            mMover.Dropped();
 
         if (AttachedHands.Count == 1)
         {
