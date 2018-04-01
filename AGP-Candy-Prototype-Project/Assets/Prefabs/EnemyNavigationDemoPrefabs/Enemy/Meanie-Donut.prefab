@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 114428629825560686}
   - component: {fileID: 114951375127482982}
   - component: {fileID: 114099142145740472}
+  - component: {fileID: 114184169033774822}
   m_Layer: 9
   m_Name: Meanie-Donut
   m_TagString: Enemy
@@ -405,6 +406,18 @@ MonoBehaviour:
   Rigidbody: {fileID: 0}
   Item: {fileID: 0}
   IsAttached: 0
+--- !u!114 &114184169033774822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1906571227068398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acc68a2ecf98824ba3f8fa739c53028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Material: 6
 --- !u!114 &114214081242952792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -417,7 +430,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  MaxEnemyHitByEnemyDamage: 100
+  mPickedUp: {fileID: 0}
+  mDropped: {fileID: 0}
+  mHit: {fileID: 0}
 --- !u!114 &114380807399997320
 MonoBehaviour:
   m_ObjectHideFlags: 1

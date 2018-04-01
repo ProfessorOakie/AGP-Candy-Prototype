@@ -55,7 +55,8 @@ public class EnemyMove : MonoBehaviour {
     public void PickedUp()
     {
         // play designated audio clip
-        mAudioSource.PlayOneShot(mPickedUp, 0.5f);
+        if(mAudioSource && mPickedUp)
+            mAudioSource.PlayOneShot(mPickedUp, 0.5f);
 
         agent.enabled = false;
         //mRigidbody.mass *= massPickedUpScale;
@@ -66,7 +67,8 @@ public class EnemyMove : MonoBehaviour {
     // Player lets go of held enemy
     public void Dropped()
     {
-        mAudioSource.PlayOneShot(mDropped, 0.5f);
+        if (mAudioSource && mDropped)
+            mAudioSource.PlayOneShot(mDropped, 0.5f);
 
         isFalling = true;
         mRigidbody.useGravity = true;
@@ -75,7 +77,8 @@ public class EnemyMove : MonoBehaviour {
 
     private void Hit(Collision collision)
     {
-        mAudioSource.PlayOneShot(mHit, 0.5f);
+        if (mAudioSource && mHit)
+            mAudioSource.PlayOneShot(mHit, 0.5f);
 
         agent.enabled = false;
 

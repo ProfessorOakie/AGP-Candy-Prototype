@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114094290965571822}
   - component: {fileID: 114113761827074376}
   - component: {fileID: 114155953301455070}
+  - component: {fileID: 114469290672881150}
   m_Layer: 0
   m_Name: sucker
   m_TagString: Untagged
@@ -232,6 +233,18 @@ MonoBehaviour:
   Rigidbody: {fileID: 0}
   Item: {fileID: 0}
   IsAttached: 0
+--- !u!114 &114469290672881150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1086218493092550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acc68a2ecf98824ba3f8fa739c53028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Material: 6
 --- !u!135 &135661722263529386
 SphereCollider:
   m_ObjectHideFlags: 1
