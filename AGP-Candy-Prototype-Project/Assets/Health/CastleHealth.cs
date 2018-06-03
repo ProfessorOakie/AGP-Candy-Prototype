@@ -11,6 +11,14 @@ public class CastleHealth : Health {
     [SerializeField]
     private Transform AttackPoint;
 
+    private AudioSource mSource;
+    [SerializeField]
+    private AudioClip mClipTakeDamage;
+    [SerializeField]
+    private AudioClip mClipDie;
+
+    private bool isAlive = true;
+
     protected override void Start()
     {
         base.Start();
@@ -18,6 +26,16 @@ public class CastleHealth : Health {
         for (int i = 0; i < renderers.Length; ++i)
         {
             oldColors.Add(renderers[i].material.color);
+        }
+
+        mSource = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightAlt))
+        {
+            Die();
         }
     }
 
@@ -30,13 +48,33 @@ public class CastleHealth : Health {
     {
         base.TakeDamage(amount);
         StartCoroutine(FlashBlue(1.0f));
+        mSource.PlayOneShot(mClipTakeDamage);
+        Debug.Log(mCurrentHealth);
     }
 
 	public override void Die ()
 	{
-		SceneManager.LoadScene("Death");
+        if(isAlive)
+        {
+            isAlive = false;
+            mSource.PlayOneShot(mClipDie);
+            StartCoroutine(explodeWait());
+        }
+       
 	}
 
+    private IEnumerator explodeWait()
+    {
+        yield return new WaitForSeconds(1.5f);
+        var rigidbodies = GetComponentsInChildren<Rigidbody>();
+        var colliders = GetComponentsInChildren<MeshCollider>();
+        for (int i = 0; i < rigidbodies.Length; i++)
+        {
+            colliders[i].enabled = true;
+            rigidbodies[i].useGravity = true;
+        }
+
+    }
 
     private IEnumerator FlashBlue(float duration)
     {

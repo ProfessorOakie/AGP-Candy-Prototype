@@ -71,7 +71,13 @@ namespace NewtonVR
         /// <returns>The correct value.</returns>
         public static float CubicEaseOut(float velocity, float startingValue = 0, float changeInValue = 1)
         {
-            return changeInValue * ((velocity = velocity / NVRCollisionSoundController.Instance.MaxCollisionVelocity - 1) * velocity * velocity + 1) + startingValue;
+            if (NVRCollisionSoundController.Instance)
+                return changeInValue * ((velocity = velocity / NVRCollisionSoundController.Instance.MaxCollisionVelocity - 1) * velocity * velocity + 1) + startingValue;
+            else
+            {
+                Debug.LogWarning("Null Reference");
+                return 0;
+            }
         }
     }
 }

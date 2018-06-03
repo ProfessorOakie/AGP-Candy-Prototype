@@ -17,6 +17,8 @@ public class EnemyHealth : Health {
         }
         
         GameManager.Instance.NumLivingEnemiesIncrement();
+
+      
     }
 
     private void Update()
@@ -24,6 +26,8 @@ public class EnemyHealth : Health {
         // For Debug porpoises :)
         if (Input.GetKeyDown(KeyCode.K))
             TakeDamage(99999999);
+        if (Input.GetKeyDown(KeyCode.L))
+            TakeDamage(mMaxHealth / 20.0f);
     }
 
     public override void TakeDamage(float amount)
@@ -33,7 +37,8 @@ public class EnemyHealth : Health {
 
         foreach(var rend in renderers)
         {
-            rend.material.SetFloat("_FillPercent", 1.0f - (mCurrentHealth / mMaxHealth));
+            float pct = 1.0f - (mCurrentHealth / mMaxHealth);
+            rend.material.SetFloat("_FillPercent", pct);
         }
     }
 

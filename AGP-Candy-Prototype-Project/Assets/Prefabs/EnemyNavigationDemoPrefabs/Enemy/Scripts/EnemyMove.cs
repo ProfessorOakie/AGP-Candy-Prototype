@@ -19,6 +19,7 @@ public class EnemyMove : MonoBehaviour {
     public AudioClip mHit;
 
     private int MaxEnemyHitByEnemyDamage = 30;
+    private float speed;
     //private Animator mAnimator;
 
     //[SerializeField]
@@ -49,8 +50,13 @@ public class EnemyMove : MonoBehaviour {
         //mAnimator.SetBool("isJumping", true);
         if (agentBlueprint == null) agentBlueprint = agent;
         BeginNav();
+        speed = agent.speed;
 	}
-		
+    private void Update()
+    {
+        if(agent.enabled && agent.remainingDistance < Mathf.Infinity)
+            agent.speed = agent.remainingDistance * speed;
+    }
     // Enemy was picked up by player
     public void PickedUp()
     {
