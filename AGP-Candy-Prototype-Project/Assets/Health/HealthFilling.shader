@@ -18,6 +18,8 @@
 		sampler2D _MainTex;
 
 		float _FillPercent;
+		int _FillAxis;
+		float _FillAxisLength;
 
 		half _Glossiness;
 		half _Metallic;
@@ -48,10 +50,40 @@
 			
 
 			// TODO: calculate the 1.7f number (the half height) through code rather then hardcode it.
-			float fillHeight = (-_FillPercent*.2) + 0.1f - 0.001f;
+			float fillHeight = (-_FillPercent * _FillAxisLength) + (_FillAxisLength * 0.5f) - 0.001f;
 
-			if (IN.localPos.z > fillHeight)
-				c = _FillColor;
+			if (_FillAxis == 0)
+			{
+				if (IN.localPos.x > fillHeight)
+					c = _FillColor;
+			}
+			else if(_FillAxis == 1)
+			{
+				if (IN.localPos.y > fillHeight)
+					c = _FillColor;
+			}
+			else if (_FillAxis == 2)
+			{
+				if (IN.localPos.z > fillHeight)
+					c = _FillColor;
+			}
+			else if (_FillAxis == 3)
+			{
+				if (IN.localPos.x < -fillHeight)
+					c = _FillColor;
+			}
+			else if (_FillAxis == 4)
+			{
+				if (IN.localPos.y < -fillHeight)
+					c = _FillColor;
+			}
+			else if (_FillAxis == 5)
+			{
+				if (IN.localPos.z < -fillHeight)
+					c = _FillColor;
+			}
+			
+			
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables
 			//o.Metallic = _Metallic;
